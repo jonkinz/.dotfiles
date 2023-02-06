@@ -1,16 +1,22 @@
+#!/bin/sh
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# If you come from bash you might have to change your $PATH.
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 export PATH=$HOME/bin:/$HOME/local/bin:$PATH:/$HOME/.local/bin:$HOME/.local/share/nvim/mason/bin:$HOME/.cargo/bin
-# export PATH=$HOME/bin:/jonathan/local/bin:/sbin:/jonathan/sbin:$PATH
-# Path to your oh-my-zsh installation.
+
+# no beeping
+unsetopt BEEP
+zle_highlight=('paste:none')
+
 export ZSH="$HOME/.oh-my-zsh"
+
+# FZF config
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 # Use ~~ as the trigger sequence instead of the default **
@@ -48,142 +54,106 @@ _fzf_comprun() {
     *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
   esac
 }
-#fzf --preview 'bat --color=always {}' --preview-window '~3'
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
- ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# Example install plugins
+plug "zap-zsh/supercharge"
+plug "zsh-users/zsh-autosuggestions"
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+#Example plugin pinned to specifc commit or branch, just pass the git reference
+plug "zsh-users/zsh-syntax-highlighting"
 
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+# Example install completion
+plug "esc/conda-zsh-completion"
 
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
+#plug aliases.zsh
+# source aliases
+# ALIASFILE=./aliases.zsh
+# source $ALIASFILE
+# function add_alias() {
+#     if [[ -z $1 || -z $2 || $# -gt 2 ]]; then
+#         echo usage:
+#         echo "\t\$$0 ll 'ls -l'"
+#     else
+#         echo "alias $1='$2'" >> $ALIASFILE
+#         echo "alias ADDED to $ALIASFILE"
+#     fi
+# }
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+# Load seperated config files
+# for conf in "$HOME/.dotfiles/zsh/config.d/"*.zsh; do
+#   source "${conf}"
+# done
+# unset conf
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions z zsh-syntax-highlighting)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-
-# Add your own aliases here...
-alias up='cd ..'
-# You'll need node.
-alias secretKey='~/MyShellScripts/generateSecretKey.sh'
-alias makeEx='chmod u+x *.sh'
-alias sourceZsh='source ~/.zshrc'
-alias cdJsSnippets='cd ~/.config/lvim/snippets/my-snippets/'
-alias editJsSnippets='lvim ~/.config/lvim/snippets/my-snippets/javascript.json'
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias weather='curl wttr.in'
-alias dockerStartService='sudo service docker start'
-alias dockerStopService='sudo service docker stop'
-# stops all docker containers
-alias dockerStopContainer='docker rm -f $(docker ps -a -q)'
-# build docker image. You should provide a tag / name at the end.
-alias dockerBuild='docker build -t '
-# run dockercontainer on port 3000, in the background. You should provide the name of the container from the build step.
-alias dockerRun='docker run -dp 3000:3000 '
-alias dockerBindMount='docker run -it --mount type=bind,src="$(pwd)",target=/src ubuntu bash'
-alias dockerLogs='docker logs -f $(docker ps -q) '
-alias dockerMountBind='docker run -dp 3000:3000 \
-    -w /app --mount type=bind,src="$(pwd)",target=/app \
-    node:18-alpine \
-    sh -c "yarn install && yarn run dev"'
-# Assumes sql container is the only one running
-alias dockerSql='docker exec -it $(docker ps -q) mysql -u root -p'
-alias clr='clear'
-alias aliasPath='cd /home/jonathan/.oh-my-zsh/custom'
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+echo "$HOME/.dotfiles/zsh/aliases.zsh"
+source "$HOME/.dotfiles/zsh/aliases.zsh"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# unset zle_bracketed_paste
-zle_highlight=('paste:none')
+# History in cache directory:
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.cache/zsh/history
+
+# Basic auto/tab complete:
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots)		# Include hidden files.
+
+# vi mode
 bindkey -v
+export KEYTIMEOUT=1
+
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
+
+# Change cursor shape for different vi modes.
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] ||
+     [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'
+  elif [[ ${KEYMAP} == main ]] ||
+       [[ ${KEYMAP} == viins ]] ||
+       [[ ${KEYMAP} = '' ]] ||
+       [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'
+  fi
+}
+zle -N zle-keymap-select
+zle-line-init() {
+    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    echo -ne "\e[5 q"
+}
+zle -N zle-line-init
+echo -ne '\e[5 q' # Use beam shape cursor on startup.
+preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
+# Use lf to switch directories and bind it to ctrl-o
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+bindkey -s '^o' 'lfcd\n'
+
+# Edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
+
+# Load aliases and shortcuts if existent.
+# [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
+# [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
