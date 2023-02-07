@@ -57,6 +57,9 @@ _fzf_comprun() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+if [ -f ${HOME}/.zplug/init.zsh ]; then
+    source ${HOME}/.zplug/init.zsh
+fi
 # Example install plugins
 plug "zap-zsh/supercharge"
 plug "zsh-users/zsh-autosuggestions"
