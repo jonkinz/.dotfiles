@@ -5,7 +5,7 @@ local servers = {
 	"tsserver",
 	"eslint",
 	"pyright",
-	-- "bashls",
+	"bashls",
 	"jsonls",
 	"yamlls",
 }

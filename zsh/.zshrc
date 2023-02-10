@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/zsh
+
+# zmodload zsh/zprof
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -8,7 +10,9 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export PATH=$HOME/bin:/$HOME/local/bin:$PATH:/$HOME/.local/bin:$HOME/.local/share/nvim/mason/bin:$HOME/.cargo/bin
+path+=('/home/jonathan/.local/share')
+
+export PATH=$HOME/bin:/$HOME/.local/bin:$PATH:/$HOME/.local/bin:$HOME/.local/share/nvim/mason/bin:$HOME/.cargo/bin
 
 # no beeping
 unsetopt BEEP
@@ -57,9 +61,9 @@ _fzf_comprun() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [ -f ${HOME}/.zplug/init.zsh ]; then
-    source ${HOME}/.zplug/init.zsh
-fi
+# if [ -f ${HOME}/.zplug/init.zsh ]; then
+#     source ${HOME}/.zplug/init.zsh
+# fi
 # Example install plugins
 plug "zap-zsh/supercharge"
 plug "zsh-users/zsh-autosuggestions"
@@ -90,8 +94,12 @@ plug "esc/conda-zsh-completion"
 # done
 # unset conf
 
-echo "$HOME/.dotfiles/zsh/aliases.zsh"
-source "$HOME/.dotfiles/zsh/aliases.zsh"
+# echo "$HOME/.dotfiles/zsh/aliases.zsh"
+
+source "$HOME/.dotfiles/zsh/.my_aliases"
+source "$HOME/.dotfiles/zsh/.my_functions"
+# plug "$HOME/.dotfiles/zsh/.my_aliases"
+# plug "$HOME/.dotfiles/zsh/.my_functions"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -160,3 +168,4 @@ bindkey '^e' edit-command-line
 # Load aliases and shortcuts if existent.
 # [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
 # [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
+# zprof

@@ -1,0 +1,16 @@
+#!/bin/zsh
+
+# Do 'curlGet foo' to curl 'http://localhost:8000/foo' 
+function curlGet() {
+	curl http://localhost:8000/$1
+}
+
+# For some image 'foo', do dockerRunTest foo. Assumes you have a 'docker-compose.dev.yml' file.
+function dockerRunTest() {
+	docker compose -f docker-compose.dev.yml run $1 npm run test
+}
+
+# do 'aptInstall someApp'
+function aptInstall() {
+	sudo apt install $1
+}
