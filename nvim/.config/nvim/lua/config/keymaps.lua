@@ -1,3 +1,7 @@
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
+
 local opts = { noremap = true, silent = true }
 
 local term_opts = { silent = true }
@@ -6,7 +10,8 @@ local term_opts = { silent = true }
 local keymap = vim.api.nvim_set_keymap
 
 --Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
+-- keymap("", "<Space>", "<Nop>", opts)
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -40,7 +45,7 @@ keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
 
 -- Insert --
--- Press jk fast to exit insert mode 
+-- Press jk fast to exit insert mode
 keymap("i", "jk", "<ESC>", opts)
 keymap("i", "kj", "<ESC>", opts)
 
@@ -67,3 +72,17 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+
+-- keymap("n", "<leader>sx", require("telescope.builtin").resume, { noremap = true, silent = true })
+vim.keymap.set(
+  "n",
+  "<leader>sx",
+  require("telescope.builtin").resume,
+  { noremap = true, silent = true, desc = "Resume" }
+)
+-- :nnoremap <F5> "=strftime("%c")<CR>P
+-- :inoremap <F5> <C-R>=strftime("%c")<CR>
+vim.keymap.set("n", "<F5>", ":pu=strftime('%c')<CR>", { noremap = true, silent = true, desc = "Add Date" })
+vim.keymap.set("i", "<F5>", "<C-R>=strftime('%c')<CR>", { noremap = true, silent = true, desc = "Add Date" })
+-- vim.keymap.set("n", "src", ":so %<CR>", { noremap = true, silent = false, desc = "Source File" })
+vim.keymap.set("n", "<Leader>sv", ":source $MYVIMRC<CR>", { noremap = true, silent = false, desc = "Source File" })

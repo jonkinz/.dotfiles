@@ -169,3 +169,10 @@ bindkey '^e' edit-command-line
 # [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
 # [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 # zprof
+#
+function vi-yank-xclip {
+    zle vi-yank
+    echo "$CUTBUFFER" | /mnt/c/windows/system32/clip.exe
+}
+zle -N vi-yank-xclip
+bindkey -M vicmd 'y' vi-yank-xclip

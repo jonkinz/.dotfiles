@@ -42,3 +42,5 @@ alias curlPost="curl --request POST \
   --url http://localhost:8000/test \
   --header 'content-type: application/json' \
   --data '{\"msg\": \"testing\"}'"
+alias grepFunc='functions | grep -B 2 $1'
+# alias=functions | grep -B 1 localhost:8000
