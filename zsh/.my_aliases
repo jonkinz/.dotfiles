@@ -44,3 +44,6 @@ alias curlPost="curl --request POST \
   --data '{\"msg\": \"testing\"}'"
 alias grepFunc='functions | grep -B 2 $1'
 # alias=functions | grep -B 1 localhost:8000
+alias versionLinux='lsb_release -a'
+alias mongoStart='sudo mongod --dbpath ~/data/db'
+# alias randomString='node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"'
